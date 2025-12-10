@@ -138,6 +138,24 @@ export default async function UsuarioDetailPage({
                   className="bg-muted"
                 />
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="isActive">Ativo</Label>
+                <div className="flex items-center gap-2">
+                  <Switch
+                    id="isActive"
+                    checked={user.isActive ?? true}
+                    disabled
+                    className="bg-muted"
+                  />
+                  <Badge
+                    variant={user.isActive ?? true ? "default" : "secondary"}
+                    className="border-0"
+                  >
+                    {user.isActive ?? true ? "Ativo" : "Inativo"}
+                  </Badge>
+                </div>
+              </div>
             </div>
 
             <div className="mt-6 pt-6 border-t">

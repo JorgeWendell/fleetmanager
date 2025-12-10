@@ -38,6 +38,7 @@ const userSchema = z.object({
   isAdministrator: z.boolean().default(false),
   isOperator: z.boolean().default(false),
   isManager: z.boolean().default(false),
+  isActive: z.boolean().default(true),
 });
 
 const updateUserSchema = z.object({
@@ -50,6 +51,7 @@ const updateUserSchema = z.object({
   isAdministrator: z.boolean().default(false),
   isOperator: z.boolean().default(false),
   isManager: z.boolean().default(false),
+  isActive: z.boolean().default(true),
 });
 
 interface UserData {
@@ -60,6 +62,7 @@ interface UserData {
   isAdministrator: boolean;
   isOperator: boolean;
   isManager: boolean;
+  isActive?: boolean;
 }
 
 interface NewUserDialogProps {
@@ -87,6 +90,7 @@ export function NewUserDialog({
       isAdministrator: user?.isAdministrator || false,
       isOperator: user?.isOperator || false,
       isManager: user?.isManager || false,
+      isActive: user?.isActive ?? true,
     },
   });
 
@@ -100,6 +104,7 @@ export function NewUserDialog({
         isAdministrator: user.isAdministrator,
         isOperator: user.isOperator,
         isManager: user.isManager,
+        isActive: user.isActive ?? true,
       });
     } else {
       form.reset({
@@ -110,6 +115,7 @@ export function NewUserDialog({
         isAdministrator: false,
         isOperator: false,
         isManager: false,
+        isActive: true,
       });
     }
   }, [user, form]);
@@ -127,6 +133,7 @@ export function NewUserDialog({
           isAdministrator: values.isAdministrator,
           isOperator: values.isOperator,
           isManager: values.isManager,
+          isActive: values.isActive,
         });
 
         if (result?.serverError) {
@@ -149,6 +156,7 @@ export function NewUserDialog({
           isAdministrator: values.isAdministrator,
           isOperator: values.isOperator,
           isManager: values.isManager,
+          isActive: values.isActive,
         });
 
         if (result?.serverError) {
@@ -305,6 +313,24 @@ export function NewUserDialog({
                   <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
                     <div className="space-y-0.5">
                       <FormLabel>Gerente</FormLabel>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="isActive"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
+                    <div className="space-y-0.5">
+                      <FormLabel>Ativo</FormLabel>
                     </div>
                     <FormControl>
                       <Switch

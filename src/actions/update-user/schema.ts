@@ -9,5 +9,6 @@ export const updateUserSchema = z.object({
   isAdministrator: z.boolean().default(false),
   isOperator: z.boolean().default(false),
   isManager: z.boolean().default(false),
+  isActive: z.boolean().default(true),
 });
 

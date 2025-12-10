@@ -14,6 +14,7 @@ interface UsuarioEditButtonProps {
     isAdministrator: boolean;
     isOperator: boolean;
     isManager: boolean;
+    isActive?: boolean;
   };
 }
 

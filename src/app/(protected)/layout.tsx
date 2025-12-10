@@ -3,6 +3,9 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { getUserPermissions } from "@/lib/permissions";
 import { redirect } from "next/navigation";
+import { db } from "@/db/index";
+import { usersTable } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 import { AppSidebar } from "./components/sidebar/app-sidebar";
 
@@ -16,6 +19,17 @@ export default async function Layout({
   });
 
   if (!session?.user) {
+    redirect("/authentication");
+  }
+
+  // Verificar se o usuário está ativo
+  const [user] = await db
+    .select({ isActive: usersTable.isActive })
+    .from(usersTable)
+    .where(eq(usersTable.id, session.user.id))
+    .limit(1);
+
+  if (!user || !user.isActive) {
     redirect("/authentication");
   }
 

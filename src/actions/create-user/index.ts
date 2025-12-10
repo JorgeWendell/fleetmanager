@@ -43,6 +43,7 @@ export const createUserAction = actionClient
           isAdministrator: parsedInput.isAdministrator,
           isOperator: parsedInput.isOperator,
           isManager: parsedInput.isManager,
+          isActive: parsedInput.isActive,
           updatedAt: new Date(),
         })
         .where(eq(usersTable.id, result.user.id));

@@ -29,6 +29,7 @@ export const updateUserAction = actionClient
       isAdministrator: boolean;
       isOperator: boolean;
       isManager: boolean;
+      isActive: boolean;
       updatedAt: Date;
     } = {
       name: parsedInput.name,
@@ -37,6 +38,7 @@ export const updateUserAction = actionClient
       isAdministrator: parsedInput.isAdministrator,
       isOperator: parsedInput.isOperator,
       isManager: parsedInput.isManager,
+      isActive: parsedInput.isActive,
       updatedAt: new Date(),
     };
 
