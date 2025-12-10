@@ -138,6 +138,19 @@ export const serviceOrderStatusEnum = pgEnum("service_order_status", [
   "cancelada",
 ]);
 
+export const serviceOrderPriorityEnum = pgEnum("service_order_priority", [
+  "baixa",
+  "media",
+  "alta",
+  "urgente",
+]);
+
+export const serviceOrderTypeEnum = pgEnum("service_order_type", [
+  "preventiva",
+  "corretiva",
+  "preditiva",
+]);
+
 export const serviceOrdersTable = pgTable("service_orders", {
   id: text("id").primaryKey(),
   number: text("number").notNull().unique(),
@@ -147,8 +160,34 @@ export const serviceOrdersTable = pgTable("service_orders", {
   driverId: text("driver_id").references(() => driversTable.id),
   description: text("description").notNull(),
   status: serviceOrderStatusEnum("status").notNull().default("aberta"),
+  priority: serviceOrderPriorityEnum("priority").notNull().default("media"),
+  type: serviceOrderTypeEnum("type").notNull().default("corretiva"),
+  currentMileage: numeric("current_mileage", { precision: 10, scale: 2 }),
+  mechanic: text("mechanic"),
+  scheduledDate: timestamp("scheduled_date"),
+  estimatedCost: numeric("estimated_cost", { precision: 10, scale: 2 }),
+  validatedBy: text("validated_by"),
+  validationDate: timestamp("validation_date"),
   startDate: timestamp("start_date").notNull(),
   endDate: timestamp("end_date"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const serviceOrderItemsTable = pgTable("service_order_items", {
+  id: text("id").primaryKey(),
+  serviceOrderId: text("service_order_id")
+    .notNull()
+    .references(() => serviceOrdersTable.id, { onDelete: "cascade" }),
+  inventoryId: text("inventory_id").references(() => inventoryTable.id),
+  description: text("description").notNull(),
+  requiredQuantity: numeric("required_quantity", {
+    precision: 10,
+    scale: 2,
+  }).notNull(),
+  purchaseRequestId: text("purchase_request_id").references(
+    () => purchasesTable.id
+  ),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });
@@ -201,16 +240,33 @@ export const purchaseStatusEnum = pgEnum("purchase_status", [
   "cancelada",
 ]);
 
+export const purchaseUrgencyEnum = pgEnum("purchase_urgency", [
+  "baixa",
+  "media",
+  "alta",
+  "urgente",
+]);
+
 export const purchasesTable = pgTable("purchases", {
   id: text("id").primaryKey(),
   number: text("number").notNull().unique(),
-  supplierId: text("supplier_id")
-    .notNull()
-    .references(() => suppliersTable.id),
+  inventoryId: text("inventory_id").references(() => inventoryTable.id),
+  serviceOrderId: text("service_order_id").references(
+    () => serviceOrdersTable.id
+  ),
+  supplierId: text("supplier_id").references(() => suppliersTable.id),
+  urgency: purchaseUrgencyEnum("urgency").notNull().default("media"),
+  quantity: numeric("quantity", { precision: 10, scale: 2 }),
   status: purchaseStatusEnum("status").notNull().default("pendente"),
-  totalAmount: numeric("total_amount", { precision: 10, scale: 2 }).notNull(),
+  totalAmount: numeric("total_amount", { precision: 10, scale: 2 })
+    .notNull()
+    .default("0"),
   purchaseDate: timestamp("purchase_date").notNull(),
   deliveryDate: timestamp("delivery_date"),
+  receiverName: text("receiver_name"),
+  invoiceNumber: text("invoice_number"),
+  approvedBy: text("approved_by"),
+  approvalDate: timestamp("approval_date"),
   notes: text("notes"),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),

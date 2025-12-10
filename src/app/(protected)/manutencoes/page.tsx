@@ -1,6 +1,3 @@
-import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,7 +6,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  PageActions,
   PageContainer,
   PageContent,
   PageDescription,
@@ -26,10 +22,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Eye } from "lucide-react";
+import Link from "next/link";
 import { db } from "@/db/index";
 import { maintenancesTable, vehiclesTable } from "@/db/schema";
-import { Plus } from "lucide-react";
-import { eq, isNull } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 async function getMaintenances() {
   return await db
@@ -69,14 +67,6 @@ export default async function ManutencoesPage() {
             Histórico e gestão de manutenções dos veículos
           </PageDescription>
         </PageHeaderContent>
-        <PageActions>
-          <Button asChild>
-            <Link href="/manutencoes/nova">
-              <Plus className="h-4 w-4" />
-              Nova Manutenção
-            </Link>
-          </Button>
-        </PageActions>
       </PageHeader>
 
       <PageContent>
@@ -84,8 +74,9 @@ export default async function ManutencoesPage() {
           <CardHeader>
             <CardTitle>Histórico de Manutenções</CardTitle>
             <CardDescription>
-              {maintenances.length} manutenção{maintenances.length !== 1 ? "ões" : ""}{" "}
-              registrada{maintenances.length !== 1 ? "s" : ""}
+              {maintenances.length} manutenção
+              {maintenances.length !== 1 ? "ões" : ""} registrada
+              {maintenances.length !== 1 ? "s" : ""}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -105,6 +96,7 @@ export default async function ManutencoesPage() {
                     <TableHead>Quilometragem</TableHead>
                     <TableHead>Custo</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Ver</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -135,8 +127,18 @@ export default async function ManutencoesPage() {
                             item.maintenance.endDate ? "default" : "destructive"
                           }
                         >
-                          {item.maintenance.endDate ? "Concluída" : "Em Andamento"}
+                          {item.maintenance.endDate
+                            ? "Concluída"
+                            : "Em Andamento"}
                         </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Button variant="outline" size="sm" asChild>
+                          <Link href={`/manutencoes/${item.maintenance.id}`}>
+                            <Eye className="h-4 w-4 mr-2" />
+                            Ver
+                          </Link>
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -149,4 +151,3 @@ export default async function ManutencoesPage() {
     </PageContainer>
   );
 }
-

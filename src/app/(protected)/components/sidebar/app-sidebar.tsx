@@ -122,6 +122,10 @@ const data = {
               title: "Lista de Compras",
               url: "/compras",
             },
+            {
+              title: "Histórico",
+              url: "/compras/historico",
+            },
           ],
         },
         {

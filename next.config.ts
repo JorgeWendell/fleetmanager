@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
-  serverExternalPackages: ["pg", "drizzle-orm"],
+  serverExternalPackages: ["pg", "drizzle-orm", "@react-pdf/renderer"],
   turbopack: {
     resolveExtensions: [".js", ".jsx", ".ts", ".tsx"],
   },

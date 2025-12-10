@@ -1,4 +1,4 @@
-import { count, eq, isNull, isNotNull, sql, and, lte } from "drizzle-orm";
+import { count, eq, isNull, isNotNull, sql, and, lte, or } from "drizzle-orm";
 
 import {
   Card,
@@ -80,11 +80,14 @@ async function getDashboardStats() {
       .select({ count: count() })
       .from(inventoryTable)
       .where(
-        and(
-          isNotNull(inventoryTable.minQuantity),
-          lte(
-            sql`CAST(${inventoryTable.quantity} AS DECIMAL)`,
-            sql`CAST(${inventoryTable.minQuantity} AS DECIMAL)`
+        or(
+          eq(sql`CAST(${inventoryTable.quantity} AS DECIMAL)`, sql`0`),
+          and(
+            isNotNull(inventoryTable.minQuantity),
+            lte(
+              sql`CAST(${inventoryTable.quantity} AS DECIMAL)`,
+              sql`CAST(${inventoryTable.minQuantity} AS DECIMAL)`
+            )
           )
         )
       ),

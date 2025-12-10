@@ -156,8 +156,10 @@ export default function EditarEstoquePage({
       }
 
       toast.success("Peça atualizada com sucesso!");
-      router.push(`/estoque/${resolvedParams.id}`);
-      router.refresh();
+      // Aguardar um pouco para garantir que o toast apareça antes de redirecionar
+      setTimeout(() => {
+        router.push(`/estoque/${resolvedParams.id}`);
+      }, 300);
     } catch (error) {
       toast.error("Erro ao atualizar peça");
     } finally {
