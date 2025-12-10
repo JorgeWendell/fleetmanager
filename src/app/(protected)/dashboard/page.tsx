@@ -16,6 +16,7 @@ import {
   PageTitle,
 } from "@/components/ui/page-container";
 import { db } from "@/db/index";
+import { RouteGuard } from "@/components/route-guard";
 import {
   driversTable,
   maintenancesTable,

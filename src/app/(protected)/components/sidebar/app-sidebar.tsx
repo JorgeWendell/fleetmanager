@@ -14,6 +14,7 @@ import {
   Building2,
   DollarSign,
   FileText,
+  Settings,
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -41,8 +42,9 @@ import {
 import { authClient } from "@/lib/auth-client";
 
 import { NavMain } from "./nav-main";
+import { getVisibleMenuItems, UserPermissions } from "@/lib/permissions-client";
 
-const data = {
+const allMenuItems = {
   navMain: [
     {
       label: "Menu",
@@ -161,12 +163,30 @@ const data = {
             },
           ],
         },
+        {
+          title: "Configurações",
+          url: "/configuracoes/usuarios",
+          icon: Settings,
+          items: [
+            {
+              title: "Usuários",
+              url: "/configuracoes/usuarios",
+            },
+          ],
+        },
       ],
     },
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  permissions?: UserPermissions;
+}
+
+export function AppSidebar({
+  permissions,
+  ...props
+}: AppSidebarProps) {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
@@ -191,6 +211,44 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const currentTheme = theme || "light";
     setTheme(currentTheme === "dark" ? "light" : "dark");
   };
+
+  // Filtrar itens do menu baseado nas permissões
+  const getFilteredMenuItems = () => {
+    // Se não tem permissões ou é admin, mostrar tudo
+    if (!permissions || permissions.isAdministrator) {
+      return allMenuItems.navMain;
+    }
+
+    const visibleItems = getVisibleMenuItems(permissions);
+    const routeMap: Record<string, string> = {
+      dashboard: "/dashboard",
+      veiculos: "/veiculos",
+      motoristas: "/motoristas",
+      "ordens-servico": "/ordens-servico",
+      manutencoes: "/manutencoes",
+      estoque: "/estoque",
+      compras: "/compras",
+      fornecedores: "/fornecedores",
+      custos: "/custos",
+      relatorios: "/relatorios",
+      configuracoes: "/configuracoes",
+    };
+
+    const filteredItems = allMenuItems.navMain[0].items.filter((item) => {
+      const menuKey = Object.keys(routeMap).find(
+        (key) => routeMap[key] === item.url
+      );
+      return menuKey && visibleItems.includes(menuKey);
+    });
+
+    return [
+      {
+        ...allMenuItems.navMain[0],
+        items: filteredItems,
+      },
+    ];
+  };
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <Image
@@ -201,7 +259,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         className="mx-auto mt-4"
       />
       <SidebarContent>
-        <NavMain groups={data.navMain} />
+        <NavMain groups={getFilteredMenuItems()} />
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>

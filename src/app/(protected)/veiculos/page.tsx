@@ -1,4 +1,5 @@
 import { db } from "@/db/index";
+import { PermissionGuard } from "../components/permission-guard";
 import {
   vehiclesTable,
   driversTable,
