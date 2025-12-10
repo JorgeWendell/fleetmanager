@@ -169,7 +169,8 @@ export default async function EstoqueDetailPage({
         </PageHeaderContent>
       </PageHeader>
 
-      <PageContent className="space-y-6">
+      <PageContent>
+        <div className="space-y-6">
         {/* Main Item Information Card */}
         <Card>
           <CardContent className="p-6">
@@ -435,6 +436,7 @@ export default async function EstoqueDetailPage({
             )}
           </CardContent>
         </Card>
+        </div>
       </PageContent>
     </PageContainer>
   );

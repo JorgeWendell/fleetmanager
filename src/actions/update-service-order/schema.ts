@@ -4,10 +4,10 @@ export const updateServiceOrderSchema = z.object({
   id: z.string().min(1, { message: "ID é obrigatório" }),
   vehicleId: z.string().min(1, { message: "Veículo é obrigatório" }),
   type: z.enum(["preventiva", "corretiva", "preditiva"], {
-    required_error: "Tipo é obrigatório",
+    message: "Tipo é obrigatório",
   }),
   priority: z.enum(["baixa", "media", "alta", "urgente"], {
-    required_error: "Prioridade é obrigatória",
+    message: "Prioridade é obrigatória",
   }),
   currentMileage: z.coerce
     .number()

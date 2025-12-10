@@ -41,7 +41,7 @@ interface Purchase {
   purchase: {
     id: string;
     number: string;
-    supplierId: string;
+    supplierId: string | null;
     status: "pendente" | "aprovada" | "recebida" | "cancelada";
     totalAmount: string;
     quantity: string | null;
@@ -167,7 +167,8 @@ export function ComprasClient({ purchases, stats }: ComprasClientProps) {
         </PageActions>
       </PageHeader>
 
-      <PageContent className="space-y-6">
+      <PageContent>
+        <div className="space-y-6">
         {/* Summary Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
@@ -381,6 +382,7 @@ export function ComprasClient({ purchases, stats }: ComprasClientProps) {
               ))}
             </div>
           )}
+        </div>
         </div>
       </PageContent>
 

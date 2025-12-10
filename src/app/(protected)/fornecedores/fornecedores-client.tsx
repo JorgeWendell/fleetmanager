@@ -107,8 +107,8 @@ export function FornecedoresClient({
     <PageContainer>
       <PageHeader>
         <PageHeaderContent>
-          <PageTitle className="text-3xl font-bold">Gestão de Fornecedores</PageTitle>
-          <PageDescription className="text-base">
+          <PageTitle>Gestão de Fornecedores</PageTitle>
+          <PageDescription>
             Gerencie os fornecedores de peças e serviços
           </PageDescription>
         </PageHeaderContent>

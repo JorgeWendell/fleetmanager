@@ -7,7 +7,7 @@ export const updatePurchaseSchema = z.object({
     .number()
     .min(0.01, { message: "Quantidade deve ser maior que 0" }),
   urgency: z.enum(["baixa", "media", "alta", "urgente"], {
-    required_error: "Urgência é obrigatória",
+    message: "Urgência é obrigatória",
   }),
   serviceOrderId: z.string().optional(),
   supplierId: z.string().optional(),

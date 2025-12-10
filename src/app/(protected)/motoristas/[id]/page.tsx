@@ -143,7 +143,8 @@ export default async function MotoristaDetailPage({
         </PageHeaderContent>
       </PageHeader>
 
-      <PageContent className="space-y-6">
+      <PageContent>
+        <div className="space-y-6">
         {/* Main Driver Information Card */}
         <Card>
           <CardContent className="p-6">
@@ -282,6 +283,7 @@ export default async function MotoristaDetailPage({
               </div>
             </CardContent>
           </Card>
+        </div>
         </div>
       </PageContent>
     </PageContainer>

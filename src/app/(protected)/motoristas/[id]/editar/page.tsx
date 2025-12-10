@@ -49,7 +49,7 @@ const driverSchema = z.object({
   phone: z.string().trim().optional(),
   email: z.string().email({ message: "Email inválido" }).optional().or(z.literal("")),
   address: z.string().trim().optional(),
-  status: z.enum(["ativo", "ferias", "inativo"]).default("ativo"),
+  status: z.enum(["ativo", "ferias", "inativo"]),
   currentVehicleId: z.string().optional(),
 });
 
@@ -173,8 +173,8 @@ export default function EditarMotoristaPage({
     <PageContainer>
       <PageHeader>
         <PageHeaderContent>
-          <PageTitle className="text-3xl font-bold">Editar Motorista</PageTitle>
-          <PageDescription className="text-base">
+          <PageTitle>Editar Motorista</PageTitle>
+          <PageDescription>
             Atualize os dados do motorista
           </PageDescription>
         </PageHeaderContent>

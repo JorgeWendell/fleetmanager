@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     color: "#1e293b",
   },
   badge: {
-    display: "inline-block",
     padding: "4px 8px",
     borderRadius: 4,
     fontSize: 8,

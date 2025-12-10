@@ -23,8 +23,8 @@ export default async function UsuariosPage() {
     <PageContainer>
       <PageHeader>
         <PageHeaderContent>
-          <PageTitle className="text-3xl font-bold">Gestão de Usuários</PageTitle>
-          <PageDescription className="text-base">
+          <PageTitle>Gestão de Usuários</PageTitle>
+          <PageDescription>
             Gerencie os usuários do sistema
           </PageDescription>
         </PageHeaderContent>

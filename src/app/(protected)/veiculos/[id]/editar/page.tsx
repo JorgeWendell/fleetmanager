@@ -46,14 +46,14 @@ const vehicleSchema = z.object({
   plate: z.string().trim().min(1, { message: "Placa é obrigatória" }),
   brand: z.string().trim().min(1, { message: "Marca é obrigatória" }),
   model: z.string().trim().min(1, { message: "Modelo é obrigatório" }),
-  year: z.coerce.number().int().min(1900).max(2100, { message: "Ano inválido" }),
+  year: z.number().int().min(1900).max(2100, { message: "Ano inválido" }),
   color: z.string().trim().optional(),
   chassis: z.string().trim().optional(),
   renavam: z.string().trim().optional(),
-  mileage: z.coerce.number().int().min(0).default(0),
+  mileage: z.number().int().min(0, { message: "Quilometragem deve ser maior ou igual a 0" }),
   fuelType: z.string().trim().min(1, { message: "Tipo de combustível é obrigatório" }),
   status: z.enum(["disponivel", "em_uso", "manutencao", "inativo"]),
-  inMaintenance: z.boolean().default(false),
+  inMaintenance: z.boolean({ message: "Status de manutenção é obrigatório" }),
   currentDriverId: z.string().optional(),
   lastMaintenance: z.string().optional(),
   nextMaintenance: z.string().optional(),
@@ -120,7 +120,7 @@ export default function EditarVeiculoPage({
             mileage: vehicleResult.vehicle.mileage,
             fuelType: vehicleResult.vehicle.fuelType,
             status: vehicleResult.vehicle.status as "disponivel" | "em_uso" | "manutencao" | "inativo",
-            inMaintenance: vehicleResult.vehicle.inMaintenance,
+            inMaintenance: vehicleResult.vehicle.inMaintenance ?? false,
             currentDriverId: vehicleResult.vehicle.currentDriverId || "",
             lastMaintenance: vehicleResult.vehicle.lastMaintenance
               ? new Date(vehicleResult.vehicle.lastMaintenance).toISOString().split("T")[0]
@@ -188,8 +188,8 @@ export default function EditarVeiculoPage({
     <PageContainer>
       <PageHeader>
         <PageHeaderContent>
-          <PageTitle className="text-3xl font-bold">Editar Veículo</PageTitle>
-          <PageDescription className="text-base">
+          <PageTitle>Editar Veículo</PageTitle>
+          <PageDescription>
             Atualize as informações do veículo
           </PageDescription>
         </PageHeaderContent>

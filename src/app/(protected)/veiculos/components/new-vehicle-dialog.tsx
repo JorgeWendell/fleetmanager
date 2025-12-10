@@ -44,13 +44,13 @@ const vehicleSchema = z.object({
   plate: z.string().trim().min(1, { message: "Placa é obrigatória" }),
   brand: z.string().trim().min(1, { message: "Marca é obrigatória" }),
   model: z.string().trim().min(1, { message: "Modelo é obrigatório" }),
-  year: z.coerce.number().int().min(1900).max(2100, { message: "Ano inválido" }),
+  year: z.number().int().min(1900).max(2100, { message: "Ano inválido" }),
   color: z.string().trim().optional(),
   chassis: z.string().trim().optional(),
   renavam: z.string().trim().optional(),
-  mileage: z.coerce.number().int().min(0).default(0),
+  mileage: z.number().int().min(0, { message: "Quilometragem deve ser maior ou igual a 0" }),
   fuelType: z.string().trim().min(1, { message: "Tipo de combustível é obrigatório" }),
-  inMaintenance: z.boolean().default(false),
+  inMaintenance: z.boolean({ message: "Status de manutenção é obrigatório" }),
   currentDriverId: z.string().optional(),
 });
 
@@ -67,6 +67,7 @@ interface VehicleData {
   fuelType: string;
   status: string;
   inMaintenance: boolean;
+  currentDriverId: string | null;
 }
 
 interface NewVehicleDialogProps {
@@ -157,7 +158,7 @@ export function NewVehicleDialog({
         result = await updateVehicleAction({
           id: vehicle.id,
           ...values,
-          status: vehicle.status,
+          status: vehicle.status as "disponivel" | "em_uso" | "manutencao" | "inativo",
           inMaintenance: values.inMaintenance,
           currentDriverId: values.currentDriverId || undefined,
         });

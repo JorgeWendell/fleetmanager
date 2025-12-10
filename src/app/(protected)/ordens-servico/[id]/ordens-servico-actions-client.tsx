@@ -39,7 +39,7 @@ import { PDFExportButton } from "./components/pdf-export-button";
 
 const validationFormSchema = z.object({
   validatedBy: z.string().min(1, { message: "Validado por é obrigatório" }),
-  validationDate: z.date({ required_error: "Data da validação é obrigatória" }),
+  validationDate: z.date({ message: "Data da validação é obrigatória" }),
 });
 
 interface OrdensServicoActionsClientProps {

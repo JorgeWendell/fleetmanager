@@ -2,6 +2,7 @@
 
 import { db } from "@/db/index";
 import { usersTable } from "@/db/schema";
+import { sql } from "drizzle-orm";
 
 /**
  * Atualiza todos os usuários existentes para serem administradores
@@ -14,7 +15,7 @@ export async function updateAllUsersToAdmin() {
         isAdministrator: true,
         updatedAt: new Date(),
       })
-      .where(eq(usersTable.isAdministrator, false));
+      .where(sql`1=1`); // Atualizar todos os registros
 
     return { success: true };
   } catch (error) {

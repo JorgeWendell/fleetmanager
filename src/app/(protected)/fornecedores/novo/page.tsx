@@ -50,9 +50,9 @@ const supplierSchema = z.object({
   website: z.string().trim().optional(),
   address: z.string().trim().min(1, { message: "Endereço completo é obrigatório" }),
   paymentTerms: z.string().trim().optional(),
-  deliveryDays: z.coerce.number().int().min(0).optional(),
+  deliveryDays: z.number().int().min(0).optional(),
   observations: z.string().trim().optional(),
-  isActive: z.boolean().default(true),
+  isActive: z.boolean(),
 });
 
 export default function NovoFornecedorPage() {
@@ -106,8 +106,8 @@ export default function NovoFornecedorPage() {
     <PageContainer>
       <PageHeader>
         <PageHeaderContent>
-          <PageTitle className="text-3xl font-bold">Cadastrar Novo Fornecedor</PageTitle>
-          <PageDescription className="text-base">
+          <PageTitle>Cadastrar Novo Fornecedor</PageTitle>
+          <PageDescription>
             Adicione um novo fornecedor de peças e serviços ao sistema
           </PageDescription>
         </PageHeaderContent>

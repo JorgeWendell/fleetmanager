@@ -178,9 +178,10 @@ export function OrdensServicoClient({
         </PageActions>
       </PageHeader>
 
-      <PageContent className="space-y-6">
-        {/* Search and Filter Bar */}
-        <div className="flex gap-4">
+      <PageContent>
+        <div className="space-y-6">
+          {/* Search and Filter Bar */}
+          <div className="flex gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
@@ -319,6 +320,7 @@ export function OrdensServicoClient({
             })}
           </div>
         )}
+        </div>
       </PageContent>
 
       <NewServiceOrderDialog open={dialogOpen} onOpenChange={setDialogOpen} />

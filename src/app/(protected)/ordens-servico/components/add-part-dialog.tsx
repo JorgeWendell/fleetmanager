@@ -39,9 +39,7 @@ import {
 
 const addPartSchema = z.object({
   inventoryId: z.string().min(1, { message: "Peça é obrigatória" }),
-  requiredQuantity: z.coerce
-    .number()
-    .min(0.01, { message: "Quantidade deve ser maior que 0" }),
+  requiredQuantity: z.number().min(0.01, { message: "Quantidade deve ser maior que 0" }),
 });
 
 interface AddPartDialogProps {
@@ -54,7 +52,7 @@ interface AddPartDialogProps {
 interface InventoryItem {
   id: string;
   name: string;
-  code: string;
+  code: string | null;
   quantity: string | null;
 }
 
@@ -218,11 +216,10 @@ export function AddPartDialog({
                         step="0.01"
                         min="0.01"
                         placeholder="Digite a quantidade"
-                        {...field}
                         onChange={(e) =>
                           field.onChange(Number(e.target.value))
                         }
-                        value={field.value || ""}
+                        value={field.value || 0}
                       />
                     </FormControl>
                     <FormMessage />

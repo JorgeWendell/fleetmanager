@@ -98,8 +98,8 @@ export function VeiculosClient({ vehicles }: VeiculosClientProps) {
     <PageContainer>
       <PageHeader>
         <PageHeaderContent>
-          <PageTitle className="text-3xl font-bold">Gestão de Veículos</PageTitle>
-          <PageDescription className="text-base">
+          <PageTitle>Gestão de Veículos</PageTitle>
+          <PageDescription>
             Gerencie toda a sua frota de veículos
           </PageDescription>
         </PageHeaderContent>

@@ -170,7 +170,8 @@ export default async function FornecedorDetailPage({
         </PageHeaderContent>
       </PageHeader>
 
-      <PageContent className="space-y-6">
+      <PageContent>
+        <div className="space-y-6">
         {/* Main Company Information Card */}
         <Card>
           <CardContent className="p-6">
@@ -426,6 +427,7 @@ export default async function FornecedorDetailPage({
             )}
           </CardContent>
         </Card>
+        </div>
       </PageContent>
     </PageContainer>
   );

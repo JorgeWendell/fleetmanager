@@ -50,9 +50,9 @@ const supplierSchema = z.object({
   website: z.string().trim().optional(),
   address: z.string().trim().min(1, { message: "Endereço completo é obrigatório" }),
   paymentTerms: z.string().trim().optional(),
-  deliveryDays: z.coerce.number().int().min(0).optional(),
+  deliveryDays: z.number().int().min(0).optional(),
   observations: z.string().trim().optional(),
-  isActive: z.boolean().default(true),
+  isActive: z.boolean(),
 });
 
 interface SupplierData {

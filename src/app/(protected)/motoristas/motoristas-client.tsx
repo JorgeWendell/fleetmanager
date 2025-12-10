@@ -92,8 +92,8 @@ export function MotoristasClient({ drivers }: MotoristasClientProps) {
     <PageContainer>
       <PageHeader>
         <PageHeaderContent>
-          <PageTitle className="text-3xl font-bold">Gestão de Motoristas</PageTitle>
-          <PageDescription className="text-base">
+          <PageTitle>Gestão de Motoristas</PageTitle>
+          <PageDescription>
             Gerencie os motoristas da frota
           </PageDescription>
         </PageHeaderContent>

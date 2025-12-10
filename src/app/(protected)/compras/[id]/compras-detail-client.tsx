@@ -39,7 +39,7 @@ import { confirmPurchaseReceiptAction } from "@/actions/confirm-purchase-receipt
 import { updatePurchaseStatusAction } from "@/actions/update-purchase-status";
 
 const receiptFormSchema = z.object({
-  receiptDate: z.date({ required_error: "Data de recebimento é obrigatória" }),
+  receiptDate: z.date({ message: "Data de recebimento é obrigatória" }),
   receiverName: z
     .string()
     .min(1, { message: "Nome do recebedor é obrigatório" }),
@@ -55,7 +55,7 @@ interface ComprasDetailClientProps {
 
 const approvalFormSchema = z.object({
   approvedBy: z.string().min(1, { message: "Aprovado por é obrigatório" }),
-  approvalDate: z.date({ required_error: "Data de aprovação é obrigatória" }),
+  approvalDate: z.date({ message: "Data de aprovação é obrigatória" }),
 });
 
 export function ComprasDetailClient({

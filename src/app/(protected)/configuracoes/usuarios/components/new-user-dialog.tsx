@@ -47,11 +47,11 @@ const updateUserSchema = z.object({
   password: z.string().refine((val) => val === "" || val.length >= 6, {
     message: "Senha deve ter no mínimo 6 caracteres",
   }),
-  emailVerified: z.boolean().default(false),
-  isAdministrator: z.boolean().default(false),
-  isOperator: z.boolean().default(false),
-  isManager: z.boolean().default(false),
-  isActive: z.boolean().default(true),
+  emailVerified: z.boolean(),
+  isAdministrator: z.boolean(),
+  isOperator: z.boolean(),
+  isManager: z.boolean(),
+  isActive: z.boolean(),
 });
 
 interface UserData {
@@ -80,7 +80,7 @@ export function NewUserDialog({
   const [isLoading, setIsLoading] = useState(false);
   const isEditing = !!user;
 
-  const form = useForm<z.infer<typeof userSchema>>({
+  const form = useForm({
     resolver: zodResolver(isEditing ? updateUserSchema : userSchema),
     defaultValues: {
       name: user?.name || "",
