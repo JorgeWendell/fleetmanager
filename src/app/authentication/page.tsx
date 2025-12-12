@@ -22,7 +22,14 @@ const AuthenticationPage = async () => {
             href="/authentication"
             className="flex items-center gap-2 font-medium"
           >
-            <Image src="/logo.png" alt="Logo" width={200} height={200} />
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={200}
+              height={200}
+              priority
+              unoptimized
+            />
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-center">
@@ -34,11 +41,12 @@ const AuthenticationPage = async () => {
       <div className="bg-muted relative hidden lg:block">
         <Image
           src="/capa.png"
-          alt="Logo"
-          sizes="500vw"
-          width={0}
-          height={0}
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          alt="Capa"
+          fill
+          sizes="100vw"
+          className="object-cover dark:brightness-[0.2] dark:grayscale"
+          priority
+          unoptimized
         />
       </div>
     </div>
