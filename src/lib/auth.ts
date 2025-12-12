@@ -33,11 +33,12 @@ export const auth = betterAuth({
   trustedOrigins: [
     "http://localhost:5200",
     "https://fleetmanager.adelbr.tech:5200",
+    "https://fleetmanager.adelbr.tech:5200",
     "http://192.168.15.59:5200",
     "http://192.168.15.12:5200",
   ],
   baseURL:
     process.env.NODE_ENV === "production"
-      ? "https://fleetmanager.adelbr.tech:5200"
+      ? "http://fleetmanager.adelbr.tech:5200"
       : "http://192.168.15.59:5200",
 });
