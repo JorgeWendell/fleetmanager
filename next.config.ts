@@ -19,6 +19,9 @@ const nextConfig: NextConfig = {
   turbopack: {
     resolveExtensions: [".js", ".jsx", ".ts", ".tsx"],
   },
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
